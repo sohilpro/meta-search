@@ -4,7 +4,7 @@
     <HomeBanner />
 
     <!-- booking -->
-    <HomeBooking />
+    <HomeBooking  />
 
     <!-- Top Agencies -->
     <HomeSwiper />

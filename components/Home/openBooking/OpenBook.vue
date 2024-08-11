@@ -97,7 +97,7 @@
             v-if="firstDestination"
             :class="{
               '!h-max': itemsDest.length <= 5 && itemsDest.length !== 0,
-              '!hidden':  itemsDest.length === 0,
+              '!hidden': itemsDest.length === 0,
             }"
             class="flex py-2 border-b h-72 overflow-auto flex-col"
           >

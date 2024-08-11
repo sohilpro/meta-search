@@ -107,6 +107,7 @@
       </div>
     </UtilsModal>
     <!-- Modal end -->
+
     <div
       v-if="data"
       class="max-w-[1248px] mx-auto lg:grid lg:grid-cols-12 gap-y-4 gap-x-5"
@@ -376,7 +377,7 @@
 
             <!-- Ticket start -->
 
-            <UtilsTicket :data="data" v-if="data" />
+            <UtilsTicket :data="data" />
 
             <!-- Ticket end -->
           </div>

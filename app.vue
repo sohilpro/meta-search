@@ -9,6 +9,7 @@
 
 <script setup>
 const { setLocale } = useI18n();
+
 onMounted(() => {
   setLocale("en");
 });

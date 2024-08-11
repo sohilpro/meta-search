@@ -83,7 +83,7 @@
             <span class="text-[#172B30]/70 text-[10px]"> origin </span>
 
             <p class="font-extrabold text-[#172B30] text-xs">
-              Tehran
+              {{ tickets[2].origin }}
               <span class="text-[#172B30]/70 font-normal"
                 >(mehrabad Airport)</span
               >
@@ -93,7 +93,7 @@
             <span class="text-[#172B30]/70 text-[10px]"> Destination </span>
 
             <p class="font-extrabold text-[#172B30] text-xs">
-              Mashhad
+              {{ tickets[2].destination }}
               <span class="text-[#172B30]/70 font-normal"
                 >(hasheminejad Airport)</span
               >
@@ -104,13 +104,17 @@
         <div class="bg-[#CCF5FF] px-6 py-8 rounded-md w-full">
           <div class="flex items-center gap-4">
             <div class="flex items-center gap-2.5">
-              <span class="w-8 h-8 bg-[#D9D9D9] rounded-full"></span>
+              <img
+                :src="tickets[2].icon"
+                class="w-8 object-contain h-8 rounded-full"
+                alt=""
+              />
               <span class="font-extrabold text-sm">Iran Air</span>
             </div>
 
             <div class="flex text-xs flex-col">
               <p class="font-extrabold text-[#172B30]">
-                Mashhad
+                {{ tickets[2].destination }}
                 <span class="text-[#172B30]/70 font-normal"
                   >(hasheminejad Airport)</span
                 >
@@ -128,19 +132,18 @@
             <!-- <span class="text-[#172B30] text-xs"> Stop Time: 5h 34m. </span> -->
             <span class="text-[#172B30] text-xs">
               Stop Time:
+
               {{
-                format({
-                  date: tickets[1].ticket.outbound_group.arrival_date_time,
-                  format: "HH",
-                  tz: "UTC",
-                })
+                Math.floor(
+                  tickets[1].ticket.outbound_group.journey_duration_in_minute /
+                    60
+                )
               }}h
               {{
-                format({
-                  date: tickets[1].ticket.outbound_group.arrival_date_time,
-                  format: "mm",
-                  tz: "UTC",
-                })
+                Math.floor(
+                  tickets[1].ticket.outbound_group.journey_duration_in_minute %
+                    60
+                )
               }}m.
             </span>
           </div>
@@ -206,7 +209,11 @@
 
         <div class="flex items-center gap-10">
           <div class="flex items-center gap-2.5">
-            <span class="w-8 h-8 bg-[#D9D9D9] rounded-full"></span>
+            <img
+              :src="tickets[2].icon"
+              class="w-8 object-contain h-8 rounded-full"
+              alt=""
+            />
             <div class="flex flex-col">
               <span class="text-[#172B30]/70 text-[10px]">Airline</span>
               <span class="font-extrabold text-sm">Iran Air</span>
@@ -285,6 +292,49 @@ import { format } from "@formkit/tempo";
 const { tickets } = useTickets();
 const loading = ref(false);
 const basePdf = ref(null);
+const data = ref(
+  tickets.value[0].detail.map((i) => {
+    i.flight_time = format({
+      date: tickets.value[1].ticket.outbound_group.departure_date_time,
+      format: "HH:mm A D MMMM",
+      tz: "UTC",
+    });
+    i.stop_time = `${Math.floor(
+      tickets.value[1].ticket.outbound_group.journey_duration_in_minute / 60
+    )}h ${Math.floor(
+      tickets.value[1].ticket.outbound_group.journey_duration_in_minute % 60
+    )}m.`;
+    i.time = format({
+      date: tickets.value[1].ticket.outbound_group.departure_date_time,
+      format: "HH:mm A",
+      tz: "UTC",
+    });
+    i.date = format({
+      date: tickets.value[1].ticket.outbound_group.departure_date_time,
+      format: "D MMMM YYYY",
+      tz: "UTC",
+    });
+    i.price = tickets.value[1].ticket.price_detail.total_fare.payable;
+    i.baggage =
+      tickets.value[1].ticket.outbound_group.flight_segments[0].baggage_kg;
+    i.flight_number =
+      tickets.value[1].ticket.outbound_operating_airlines[0].flight_number;
+    i.issue_time = `${format({
+      date: new Date(),
+      format: "HH:mm A",
+      tz: "UTC",
+    })} , ${format({
+      date: new Date(),
+      format: "D MMMM YYYY",
+      tz: "UTC",
+    })}`;
+    i.origin = tickets.value[2].origin;
+    i.destination = tickets.value[2].destination;
+    i.icon = tickets.value[2].icon;
+
+    return i;
+  })
+);
 
 onMounted(async () => {
   try {
@@ -298,15 +348,13 @@ onMounted(async () => {
             format: "HH:mm A D MMMM",
             tz: "UTC",
           });
-          i.stop_time = `${format({
-            date: tickets.value[1].ticket.outbound_group.arrival_date_time,
-            format: "HH",
-            tz: "UTC",
-          })}h ${format({
-            date: tickets.value[1].ticket.outbound_group.arrival_date_time,
-            format: "mm",
-            tz: "UTC",
-          })}m.`;
+          i.stop_time = `${Math.floor(
+            tickets.value[1].ticket.outbound_group.journey_duration_in_minute /
+              60
+          )}h ${Math.floor(
+            tickets.value[1].ticket.outbound_group.journey_duration_in_minute %
+              60
+          )}m.`;
           i.time = format({
             date: tickets.value[1].ticket.outbound_group.departure_date_time,
             format: "HH:mm A",
@@ -331,6 +379,10 @@ onMounted(async () => {
             format: "D MMMM YYYY",
             tz: "UTC",
           })}`;
+          i.origin = tickets.value[2].origin;
+          i.destination = tickets.value[2].destination;
+          i.icon = tickets.value[2].icon;
+
           return i;
         }),
       },

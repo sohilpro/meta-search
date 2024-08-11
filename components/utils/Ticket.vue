@@ -677,7 +677,7 @@
           class="flex justify-between w-full lg:w-auto lg:justify-start items-center gap-4"
         >
           <button
-            @click="toogleModal(item)"
+            @click="toogleModal(item, imgs[index])"
             class="h-10 w-[120px] cursor-pointer rounded-lg flex items-center justify-center text-sm text-white bg-[#0A77FF]"
           >
             View Flight
@@ -937,7 +937,17 @@ try {
         headers: useRequestHeaders(["cookies"]),
         query: { logo: airline.code },
       });
-      imgUrls.push(URL.createObjectURL(data.value));
+
+      // imgUrls.push(URL.createObjectURL(data.value));
+      const base64String = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(data.value); // Assuming data.value is a Blob
+      });
+
+      imgUrls.push(base64String);
     }
   }
 } catch (error) {
@@ -1034,11 +1044,20 @@ const pushInfants = () => {
 };
 
 const detailsTicket = ref(null);
+const desOriginIcon = reactive({
+  origin: "",
+  destination: "",
+  icon: "",
+});
+
 const handleDataForTicket = () => {
   tickets.value = [
     { detail: [...adults.value, ...children.value, ...infants.value] },
     {
       ticket: detailsTicket.value,
+    },
+    {
+      ...desOriginIcon,
     },
   ];
   document.body.classList.remove("overflow-hidden");
@@ -1046,9 +1065,13 @@ const handleDataForTicket = () => {
 };
 
 const modalActive = ref(false);
-const toogleModal = (item) => {
+const toogleModal = (item, icon) => {
   modalActive.value = !modalActive.value;
   document.body.classList.add("overflow-hidden");
   detailsTicket.value = item;
+
+  desOriginIcon.origin = item.outbound_group.Origin;
+  desOriginIcon.destination = item.outbound_group.destination;
+  desOriginIcon.icon = icon;
 };
 </script>

@@ -6,7 +6,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      pdfExport: "http://localhost:5000/download",
+      // pdfExport: "http://localhost:5000/download",
+      pdfExport: "https://ticket-fake.liara.run/download",
     },
   },
 

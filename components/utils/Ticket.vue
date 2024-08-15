@@ -684,7 +684,8 @@
           </button>
           <div class="flex items-center gap-2">
             <p class="font-bold text-[#0A77FF]">
-              {{ item.price_detail.total_fare.payable }}
+              <!-- {{ item.price_detail.total_fare.payable }} -->
+                0
             </p>
             <p class="text-[#7D8590]">USD</p>
           </div>
@@ -1048,6 +1049,7 @@ const desOriginIcon = reactive({
   origin: "",
   destination: "",
   icon: "",
+  airline: "",
 });
 
 const handleDataForTicket = () => {
@@ -1073,5 +1075,6 @@ const toogleModal = (item, icon) => {
   desOriginIcon.origin = item.outbound_group.Origin;
   desOriginIcon.destination = item.outbound_group.destination;
   desOriginIcon.icon = icon;
+  desOriginIcon.airline = item.outbound_operating_airlines[0].code
 };
 </script>

@@ -1,10 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require('tailwindcss/plugin')
+const plugin = require("tailwindcss/plugin");
 
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Kalameh: "Kalameh",
+      },
+    },
   },
   plugins: [
     plugin(function ({ addUtilities, addComponents, e, prefix, config }) {

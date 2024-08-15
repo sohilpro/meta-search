@@ -1,6 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Font Kalameh */
+@font-face {
+  font-family: Kalameh;
+  font-style: normal;
+  font-weight: 100;
+  src: url(../fonts/Kalameh-Thin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Kalameh;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Kalameh-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Kalameh;
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/Kalameh-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Kalameh;
+  font-style: normal;
+  font-weight: 900;
+  src: url(../fonts/Kalameh-Black.ttf) format("truetype");
+}
+
 #Exchange.active,
 #languages.active {
   display: block;

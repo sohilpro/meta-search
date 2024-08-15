@@ -546,24 +546,24 @@
             <div class="flex justify-between">
               <span> adult: </span>
 
-              <span> 1.200 USD </span>
+              <span> 0 USD </span>
             </div>
             <div class="flex justify-between">
               <span> adult: </span>
 
-              <span> 1.200 USD </span>
+              <span> 0 USD </span>
             </div>
             <div class="flex justify-between">
               <span> adult: </span>
 
-              <span> 1.200 USD </span>
+              <span> 0 USD </span>
             </div>
             <div
               class="flex border-t pt-2 text-blue-500 text-xl justify-between"
             >
               <span> total: </span>
 
-              <span> 3.600 USD </span>
+              <span> 0 USD </span>
             </div>
           </div>
 

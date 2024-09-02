@@ -5,18 +5,17 @@
     title="Information Passengers"
     :modalActive="modalActive"
   >
-    <div class="flex">
-      <div class="basis-3/4 bg-white px-5">
+    <div class="flex lg:flex-row flex-col">
+      <div class="lg:basis-3/4 bg-white px-5">
         <div class="flex flex-col">
           <div
-            v-if="infants.length || children.length && acceptChilder"
+            v-if="infants.length || (children.length && acceptChilder)"
             @click="acceptChilder = !acceptChilder"
             class="bg-blue-100 rounded cursor-pointer p-2 text-blue-500 flex items-center gap-4"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="2rem"
-              height="2rem"
+              class="w-[20%] lg:w-8 lg:h-8"
               viewBox="0 0 16 16"
             >
               <path
@@ -24,7 +23,7 @@
                 d="M4.5 2A2.5 2.5 0 0 0 2 4.5v7A2.5 2.5 0 0 0 4.5 14h7a2.5 2.5 0 0 0 2.5-2.5v-7A2.5 2.5 0 0 0 11.5 2zm6.354 4.854l-3.5 3.5a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 9.293l3.146-3.147a.5.5 0 0 1 .708.708"
               />
             </svg>
-            <span>
+            <span class="text-sm lg:text-base">
               I confirm that the passengers are infants between 2 days and 10
               months old, children between 2 and 12 years old and adults over 12
               years old.
@@ -37,8 +36,7 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="2rem"
-              height="2rem"
+              class="w-[20%] lg:w-8 lg:h-8"
               viewBox="0 0 24 24"
             >
               <path
@@ -51,7 +49,7 @@
                 color="currentColor"
               />
             </svg>
-            <span>
+            <span class="text-sm lg:text-base">
               I confirm that the passengers are infants between 2 days and 10
               months old, children between 2 and 12 years old and adults over 12
               years old.
@@ -59,7 +57,7 @@
           </div>
           <div class="flex justify-end">
             <div
-              class="flex w-max border border-blue-500 rounded mt-5 text-blue-500 divide-x"
+              class="flex w-max border border-blue-500 rounded mb-2 mt-5 text-blue-500 divide-x"
             >
               <button @click="pushChildren" class="flex gap-0.5 px-2 py-0.5">
                 child
@@ -109,7 +107,7 @@
                   </svg>
                 </div>
 
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid lg:grid-cols-4 gap-3">
                   <div class="relative">
                     <input
                       type="text"
@@ -248,7 +246,7 @@
                     />
                   </svg>
                 </div>
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid lg:grid-cols-4 gap-3">
                   <div class="relative">
                     <input
                       type="text"
@@ -387,7 +385,7 @@
                     />
                   </svg>
                 </div>
-                <div class="grid grid-cols-4 gap-3">
+                <div class="grid lg:grid-cols-4 gap-3">
                   <div class="relative">
                     <input
                       type="text"
@@ -506,9 +504,9 @@
           </div>
 
           <div class="flex gap-5 flex-col pb-5">
-            <h4 class="text-lg font-bold">Contact information</h4>
+            <h4 class="lg:text-lg font-bold">Contact information</h4>
 
-            <div class="grid grid-cols-4 gap-3">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
               <div class="relative">
                 <input
                   type="text"
@@ -540,20 +538,20 @@
           </div>
         </div>
       </div>
-      <div class="basis-1/4 bg-gray-100 min-h-fit px-5 py-3 rounded-2xl">
+      <div class="lg:basis-1/4 bg-gray-100 min-h-fit px-5 py-3 rounded-2xl">
         <div class="flex flex-col !h-full justify-between">
           <div class="flex gap-3 flex-col">
-            <div class="flex justify-between">
+            <div class="lg:flex hidden justify-between">
               <span> adult: </span>
 
               <span> 0 USD </span>
             </div>
-            <div class="flex justify-between">
+            <div class="lg:flex hidden justify-between">
               <span> adult: </span>
 
               <span> 0 USD </span>
             </div>
-            <div class="flex justify-between">
+            <div class="lg:flex hidden justify-between">
               <span> adult: </span>
 
               <span> 0 USD </span>
@@ -685,7 +683,7 @@
           <div class="flex items-center gap-2">
             <p class="font-bold text-[#0A77FF]">
               <!-- {{ item.price_detail.total_fare.payable }} -->
-                0
+              0
             </p>
             <p class="text-[#7D8590]">USD</p>
           </div>
@@ -1069,12 +1067,12 @@ const handleDataForTicket = () => {
 const modalActive = ref(false);
 const toogleModal = (item, icon) => {
   modalActive.value = !modalActive.value;
-  document.body.classList.add("overflow-hidden");
+  document.body.classList.toggle("overflow-hidden");
   detailsTicket.value = item;
 
   desOriginIcon.origin = item.outbound_group.Origin;
   desOriginIcon.destination = item.outbound_group.destination;
   desOriginIcon.icon = icon;
-  desOriginIcon.airline = item.outbound_operating_airlines[0].code
+  desOriginIcon.airline = item.outbound_operating_airlines[0].code;
 };
 </script>

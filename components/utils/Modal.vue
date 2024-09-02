@@ -7,7 +7,7 @@
     >
       <Transition name="modal-animation-inner">
         <div
-          class="relative w-11/12 shadow bg-white rounded-xl pt-16 overflow-hidden"
+          class="relative w-full h-full lg:h-auto overflow-auto lg:w-11/12 shadow bg-white rounded-xl pt-16 lg:overflow-hidden"
           v-show="modalActive"
         >
           <!-- icon -->
